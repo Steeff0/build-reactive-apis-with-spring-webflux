@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  mongo:
+    image: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - local-dev
+
+  webservice:
+    image: "webservices-spring"
+    build:
+      context: "."
+      dockerfile: ./Dockerfile
+    environment:
+      ENABLE_DEBUG: "TRUE"
+
+networks:
+  local-dev:
+    name: local-dev
+    external: true
